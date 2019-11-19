@@ -8,15 +8,15 @@ public class ControllerWindow {
 	private int nTaps;
 	private JButton tapButton;
 	private JFrame subjectFrame;
-	private ObservableSubject observableSubject;
+	private PropertySubject propertySubject;
 
-	ControllerWindow(ObserverWindow observerWindow) {
+	ControllerWindow(PropertyChangeWindow propertyChangeWindow) {
 		//Initialize the action that will be observed.
 		nTaps = 0;
 
-		// Create the ObservableSubject and add an Observer (observerWindow)
-		observableSubject = new ObservableSubject();
-		observableSubject.addObserver(observerWindow);
+		// Create the PropertySubject and add a PropertyChangeListener (propertyChangeWindow)
+		propertySubject = new PropertySubject();
+		propertySubject.addObserver(propertyChangeWindow);
 
 		// Build the window frame for the observed subject.
 		buildWindowFrame();
@@ -38,7 +38,7 @@ public class ControllerWindow {
 		tapButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String data = "   Subject was tapped: " + ++nTaps;
-				observableSubject.changeData(data);
+				propertySubject.setProperty(data);
 			}
 		});
 	}
